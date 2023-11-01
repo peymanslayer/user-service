@@ -1,10 +1,12 @@
-import { Module } from '@nestjs/common';
-import { UserController } from './user.controller';
-import { UserService } from './user.service';
-
+import { AppModule } from "./app.module";
+import {Module} from '@nestjs/common'
+import { MongooseModule } from '@nestjs/mongoose';
 @Module({
-  imports: [],
-  controllers: [UserController],
-  providers: [UserService],
+  // eslint-disable-next-line prettier/prettier
+  imports: [
+    AppModule,MongooseModule.forRoot('mongodb://localhost:27017/user'),
+  ],
+  controllers: [],
+  providers: [MongooseModule],
 })
 export class UserModule {}
