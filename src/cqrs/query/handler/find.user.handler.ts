@@ -6,8 +6,8 @@ import { FindUserQuery } from '../imp/find.user.query';
 export class FindUserHandler implements IQueryHandler<FindUserQuery> {
   constructor(private readonly repository: UserRepo) {}
   async execute(command:FindUserQuery) {
-    const {userId}=command
-    const user = await this.repository.getUser(userId);
+    const {email}=command
+    const user = await this.repository.getUser(email);
     return user;
   }
 }

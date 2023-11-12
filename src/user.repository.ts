@@ -16,8 +16,8 @@ export class UserRepo  {
     const findAll = await this.model.find();
     return findAll;
   }
-  async getUser(id: Types.ObjectId): Promise<User | string> {
-    const findOne = await this.model.findById(id);
+  async getUser(email:string): Promise<User | string> {
+    const findOne = await this.model.findOne({email:email});
     if (findOne === null) {
       return 'user not exist';
     } else {

@@ -37,8 +37,8 @@ export class UserService {
     return data;
   }
 
-  async findUser(userId: Types.ObjectId): Promise<User> {
-    const data=await this.queryBus.execute(new FindUserQuery(userId));
+  async findUser(email:string): Promise<User> {
+    const data=await this.queryBus.execute(new FindUserQuery(email));
     return data;
   }
 
