@@ -6,7 +6,6 @@ import {
 } from '@nestjs/cqrs';
 import { CreateUserCommand } from '../imp/create.user.command';
 import { UserRepo } from 'src/user.repository';
-import { CreateUserEvent } from 'src/cqrs/events/imp/create.user.event';
 
 
 @CommandHandler(CreateUserCommand)
@@ -17,11 +16,14 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   ) {}
 
   async execute(command: CreateUserCommand) {
+    console.log(command,"this is command");
+    
+    console.log(command);
+    
     const { userDto } = command;
     const user = this.publisher.mergeObjectContext(
       await this.repository.createUser(userDto),
     );
-    console.log(user);
     
     user.createdUser();
     return user

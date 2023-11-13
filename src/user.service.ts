@@ -12,13 +12,15 @@ import { FindUserQuery } from './cqrs/query/imp/find.user.query';
 
 @Injectable()
 export class UserService {
-  constructor(private commandBus: CommandBus,private queryBus:QueryBus) {}
+  constructor(
+    private commandBus: CommandBus,
+    private queryBus: QueryBus,
+  ) {}
 
   async inserOne(user: CreateUserDto): Promise<User> {
-     const data=await this.commandBus.execute(new CreateUserCommand(user));
-     return data
+    const data = await this.commandBus.execute(new CreateUserCommand(user));
+    return data;
   }
-
 
   async updateOne(userId: Types.ObjectId, user: UpdateUserDto): Promise<User> {
     const data = await this.commandBus.execute(
@@ -32,14 +34,13 @@ export class UserService {
     return data;
   }
 
-  async findAll(){
-    const data=await this.queryBus.execute(new FindAllUserQuery());
+  async findAll() {
+    const data = await this.queryBus.execute(new FindAllUserQuery());
     return data;
   }
 
-  async findUser(email:string): Promise<User> {
-    const data=await this.queryBus.execute(new FindUserQuery(email));
+  async findUser(email: string): Promise<User> {
+    const data = await this.queryBus.execute(new FindUserQuery(email));
     return data;
   }
-
 }

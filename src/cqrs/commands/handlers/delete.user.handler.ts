@@ -8,9 +8,11 @@ export class DeleteUserHandler implements ICommandHandler<DeleteUserCommand> {
     private readonly publisher: EventPublisher,
     private readonly repository: UserRepo,
   ) {}
- async execute(command: DeleteUserCommand) {
-    const {userId}=command;
-    const user=this.publisher.mergeObjectContext(await this.repository.DeleteUser(userId));
+  async execute(command: DeleteUserCommand) {
+    const { userId } = command;
+    const user = this.publisher.mergeObjectContext(
+      await this.repository.DeleteUser(userId),
+    );
     user.deletedUser();
     return user;
   }

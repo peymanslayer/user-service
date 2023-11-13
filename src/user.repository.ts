@@ -5,7 +5,6 @@ import { Model, Types } from 'mongoose';
 import { CreateUserDto } from './dtos/create.user.dto';
 import { UpdateUserDto } from './dtos/update.user.dto';
 import { UserRoot } from './user.model';
-import { UserDocument } from './schema/user.schema';
 
 export class UserRepo  {
   constructor(
@@ -24,7 +23,9 @@ export class UserRepo  {
       return findOne;
   }
   async createUser(user: CreateUserDto)   {
-    const insertOne = await this.model.create(user);
+    console.log(user,'user');
+    
+    const insertOne = await  this.model.create(user)
     const root=new UserRoot(insertOne.id)
     root.setData(insertOne);
     return root;

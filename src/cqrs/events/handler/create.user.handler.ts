@@ -6,8 +6,8 @@ import { UserRepo } from 'src/user.repository';
 export class CreateUserEventHandler implements IEventHandler<CreateUserEvent> {
   constructor(private readonly userRepository: UserRepo) {}
   async handle(event: CreateUserEvent) {
+    console.log(event,'this is event');
+    
     await this.userRepository.createUser(event.userDto);
-    
-    
   }
 }
