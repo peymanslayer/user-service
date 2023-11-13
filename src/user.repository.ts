@@ -17,12 +17,11 @@ export class UserRepo  {
     return findAll;
   }
   async getUser(email:string): Promise<User | string> {
+    console.log(email);
+    
     const findOne = await this.model.findOne({email:email});
-    if (findOne === null) {
-      return 'user not exist';
-    } else {
+    
       return findOne;
-    }
   }
   async createUser(user: CreateUserDto)   {
     const insertOne = await this.model.create(user);
@@ -31,7 +30,6 @@ export class UserRepo  {
     return root;
   }
   async updateUser(userId: Types.ObjectId,user?: UpdateUserDto,) {
-    console.log(user);
     
     const updateOne = await this.model.findByIdAndUpdate(userId,user,{new:true});
     const root=new UserRoot(updateOne.id);

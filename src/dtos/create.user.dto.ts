@@ -9,7 +9,7 @@ export class CreateUserDto  {
   password: string;
 
   @IsNumber()
-  number: number;
+  number?: number;
 
   @IsNotEmpty()
   name: string;

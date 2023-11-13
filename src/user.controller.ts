@@ -1,15 +1,16 @@
 import { Controller } from '@nestjs/common';
 import { UserService } from './user.service';
-import { MessagePattern, Payload,EventPattern } from '@nestjs/microservices/decorators';
+import { MessagePattern, Payload,EventPattern,Ctx } from '@nestjs/microservices/decorators';
 import { CreateUserDto } from './dtos/create.user.dto';
 import { UseFilters } from '@nestjs/common';
 import { MongoExceptionFilter } from './filters/mongoose.filter';
+import { RmqContext } from '@nestjs/microservices';
 
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
   
-  @EventPattern('insertUser')
+  @MessagePattern('insertUser')
   @UseFilters(MongoExceptionFilter)
   async insertUser(user: CreateUserDto | any) {
     const result=await  this.userService.inserOne(user)    
@@ -35,8 +36,8 @@ export class UserController {
     return result;
   }
 
-  @EventPattern('findUser')
-  async findUser(@Payload() email){
+  @MessagePattern('findUser')
+  async findUser(@Payload() email, @Ctx() context: RmqContext) {
     const result=await this.userService.findUser(email);
     return result;
   }

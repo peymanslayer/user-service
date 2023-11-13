@@ -7,7 +7,7 @@ export class CreateUserEventHandler implements IEventHandler<CreateUserEvent> {
   constructor(private readonly userRepository: UserRepo) {}
   async handle(event: CreateUserEvent) {
     await this.userRepository.createUser(event.userDto);
-    console.log('ok');
+    
     
   }
 }
