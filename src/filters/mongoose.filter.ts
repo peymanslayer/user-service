@@ -7,10 +7,9 @@ export class MongoExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response: Response = ctx.getResponse();
     // const request = ctx.getRequest();
-
     let error;
-
     switch (exception.name) {
+      
       case 'DocumentNotFoundError': {
         error = {
           statusCode: HttpStatus.NOT_FOUND,
@@ -18,12 +17,14 @@ export class MongoExceptionFilter implements ExceptionFilter {
         }
         break;
       }
-      case 'MongooseError': { 
+      case 'MongooseServerError': {
         error={
             message:'mongo error',
             statusCode:HttpStatus.BAD_REQUEST
         }
-       } // general Mongoose error
+        break;
+       }
+        // general Mongoose error
       // case 'CastError': { break; }
       // case 'DisconnectedError': { break; }
       // case 'DivergentArrayError': { break; }

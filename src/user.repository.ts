@@ -15,12 +15,19 @@ export class UserRepo  {
     const findAll = await this.model.find();
     return findAll;
   }
-  async getUser(email:string): Promise<User | string> {
-    console.log(email);
-    
+  async getUser(email:string): Promise<any>{
     const findOne = await this.model.findOne({email:email});
-    
-      return findOne;
+    if(findOne){
+      return{
+        status:200,
+        message:findOne
+      }
+    }else{
+      return{
+        status:404,
+        message:'user exist'
+      }
+    }
   }
   async createUser(user: CreateUserDto)   {
     console.log(user,'user');

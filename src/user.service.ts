@@ -39,7 +39,7 @@ export class UserService {
     return data;
   }
 
-  async findUser(email: string): Promise<User> {
+  async findUser(email: string): Promise<any> {
     const data = await this.queryBus.execute(new FindUserQuery(email));
     return data;
   }

@@ -1,24 +1,19 @@
-import { Controller } from '@nestjs/common';
+import { Controller , UseFilters} from '@nestjs/common';
 import { UserService } from './user.service';
 import {
   MessagePattern,
   Payload,
-  EventPattern,
-  Ctx,
 } from '@nestjs/microservices/decorators';
 import { CreateUserDto } from './dtos/create.user.dto';
-import { UseFilters } from '@nestjs/common';
-import { MongoExceptionFilter } from './filters/mongoose.filter';
+
+
 
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @MessagePattern('insertUser')
-  @UseFilters(MongoExceptionFilter)
-  async insertUser(
-    @Payload() data: CreateUserDto,
-  ) {    
+  async insertUser(@Payload() data: CreateUserDto) {
     const result = await this.userService.inserOne(data);
     return result;
   }
@@ -42,8 +37,7 @@ export class UserController {
   }
 
   @MessagePattern('findUser')
-  async findUser(@Payload() email) {
-    const result = await this.userService.findUser(email);
-    return result;
+  async findUser( @Payload() email) :Promise<any> {
+   return await this.userService.findUser(email) 
   }
 }
