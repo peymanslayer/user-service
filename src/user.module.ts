@@ -3,9 +3,12 @@ import { UserController } from './user.controller';
 import { UserService } from './services/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
+import { CqrsModule } from '@nestjs/cqrs';
+import { AddUserCommandHandler } from './cqrs/command/handler/addUser.command.handler';
 
 @Module({
   imports: [
+    CqrsModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -16,8 +19,11 @@ import { User } from './user.entity';
       entities: [User],
       synchronize: true,
     }),
+  
+    TypeOrmModule.forFeature([User])
+
   ],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService,AddUserCommandHandler],
 })
 export class UserModule {}

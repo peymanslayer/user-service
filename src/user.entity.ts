@@ -1,5 +1,5 @@
 
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
 
 @Entity()
 export class User {
@@ -15,12 +15,13 @@ export class User {
   @Column({unique:true})
   email: string;
 
+  @Index()
   @Column('int',{unique:true})
   mobile: number;
 
   @Column()
   password: string;
 
-  @Column({unique:true,nullable:false})
+  @Column({unique:true,nullable:true})
   tokrn: string;
 }
