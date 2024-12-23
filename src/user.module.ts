@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { CqrsModule } from '@nestjs/cqrs';
 import { AddUserCommandHandler } from './cqrs/command/handler/addUser.command.handler';
+import { FindUserQueryHandler } from './cqrs/query/handler/finduser.query.handler';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
@@ -34,6 +35,6 @@ import { AuthService } from './services/auth.service';
 
   ],
   controllers: [UserController],
-  providers: [UserService,AuthService,AddUserCommandHandler,JwtStrategy],
+  providers: [UserService,AuthService,AddUserCommandHandler,JwtStrategy,FindUserQueryHandler],
 })
 export class UserModule {}
