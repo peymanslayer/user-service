@@ -30,7 +30,7 @@ import { AuthService } from './services/auth.service';
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
       secret: 'ooo',
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '30s' },
     }),
 
   ],
